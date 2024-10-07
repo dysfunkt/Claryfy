@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/Kanbanize', {}).then(() => {
+mongoose.connect('mongodb+srv://dysfunkt:Password123@claryfydb.ejfai.mongodb.net/?retryWrites=true&w=majority&appName=claryfyDB', {}).then(() => {
     console.log("Connected to MongoDB successfully");
 }).catch((e) => {
     console.log("error while attempting to connect to MongoDB");

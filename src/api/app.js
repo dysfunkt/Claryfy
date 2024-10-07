@@ -559,6 +559,9 @@ app.post('/reset-password', (req, res) => {
 
 /* HELPER METHODS */
 
+app.get('/test', (req, res) => {
+    res.send("success")
+})
 
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");

@@ -22,7 +22,6 @@ import { AddUserComponent } from './pages/add-user/add-user.component';
 import { ViewUsersComponent } from './pages/view-users/view-users.component';
 import { CommentsComponent } from './pages/comments/comments.component';
 import { AssignComponent } from './pages/assign/assign.component';
-
 @NgModule({
   declarations: [
     AppComponent,

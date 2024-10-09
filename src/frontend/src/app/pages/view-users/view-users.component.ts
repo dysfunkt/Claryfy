@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { TaskService } from '../../task.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
-import { Board } from '../../models/board.model';
 import { User } from '../../models/user.model';
 
 @Component({
@@ -13,7 +12,6 @@ import { User } from '../../models/user.model';
 export class ViewUsersComponent implements OnInit{
   constructor(private taskService: TaskService, private router: Router, private authService: AuthService, private route: ActivatedRoute) {  }
 
-  username!: string;
 
   userIds!: any[];
 
@@ -28,9 +26,6 @@ export class ViewUsersComponent implements OnInit{
         })
       }
     )
-    this.authService.getUsername().subscribe(next => {
-      this.username = (next as User).username
-    })
   }
 
   usersInit() {
@@ -50,26 +45,5 @@ export class ViewUsersComponent implements OnInit{
       }
     )
   }
-  logout() {
-    this.authService.logout()
-  }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
-    }
-    
-  }
 }

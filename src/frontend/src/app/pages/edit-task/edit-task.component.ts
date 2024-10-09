@@ -12,7 +12,6 @@ import { User } from '../../models/user.model';
   styleUrl: './edit-task.component.scss'
 })
 export class EditTaskComponent implements OnInit {
-  username!: string; 
 
   constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {}
 
@@ -29,9 +28,6 @@ export class EditTaskComponent implements OnInit {
         })
       }
     )
-    this.authService.getUsername().subscribe(next => {
-      this.username = (next as User).username
-    })
   }
 
   cancel() {
@@ -104,26 +100,4 @@ export class EditTaskComponent implements OnInit {
     return before || after
   }
   
-  logout() {
-    this.authService.logout()
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
-    }
-    
-  }
 }

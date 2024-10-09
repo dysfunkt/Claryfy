@@ -172,13 +172,4 @@
       </div>
     </div>
   </div>
-  <!-- Camera SVG Icon for Uploading Photos -->
-  <div class="camera-icon-wrapper" (click)="fileInput.click()">
-    <img src="assets/camera-icon.svg" alt="Upload Photo" class="camera-icon" />
-  </div>  
-  <input type="file" #fileInput (change)="uploadPhoto($event)" style="display: none" accept="image/*" />
-  <div *ngIf="extractedText" class="extracted-text">
-    <h3>Extracted Text:</h3>
-    <p>{{ extractedText }}</p>
-  </div>
 </div>

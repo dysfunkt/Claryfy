@@ -69,6 +69,18 @@
           class="textarea has-background-light is-medium"
           placeholder="Enter task description"
         ></textarea>
+        <br />
+        <div class="file">
+          <label class="file-label">
+            <input class="file-input" (change)="uploadPhoto($event)" type="file" name="resume" />
+            <span class="file-cta">
+              <span class="file-icon">
+                <img src="assets/camera-icon.svg" alt="Upload Photo" class="camera-icon" />
+              </span>
+              <span class="file-label"> Get Text From Image </span>
+            </span>
+          </label>
+        </div>
       </div>
       <div class="field">
         <label class="label">Task Due Date</label>
@@ -81,6 +93,7 @@
       
       <br /><br />
       <div class="buttons is-right">
+        
         <button class="button is-medium" (click)="cancel()">Cancel</button>
         <button
           class="button is-primary has-text-white is-medium"

@@ -241,59 +241,7 @@ export class KanbanViewComponent implements OnInit{
       }
     }
     
-  }
-
-  uploadPhoto(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      const formData = new FormData();
-      formData.append('image', file);
-
-      // Send the file to the backend for OCR analysis
-      this.http.post('http://localhost:3000/upload/analyze', formData).subscribe(
-        (response: any) => {
-          console.log('Text extracted successfully:', response.text);
-          this.extractedText = response.text; // Save the extracted text
-
-          // Create a new column and task with the extracted text
-          this.createExtractedTextColumn();
-        },
-        (error) => {
-          console.error('Failed to extract text:', error);
-        }
-      );
-    }
-  }
-
-  createExtractedTextColumn() {
-    // Create a new column named 'Extracted Text'
-    const newColumn: Column = {
-      _id: 'extractedTextColumn', // Temporary ID; replace with backend ID if needed
-      title: 'Extracted Text',
-      _boardId: this.board._id, // Use the current board ID
-      position: this.board.columns.length, // Position at the end of the columns array
-      taskcards: [] // Initialize with an empty taskcards array
-    };
-  
-    // Create a new taskcard with the extracted text
-    const newTaskCard: TaskCard = {
-      _id: 'extractedTextCard', // Temporary ID; replace with backend ID if needed
-      _columnId: 'extractedTextColumn', // Link it to the new column
-      title: 'OCR Extracted Content',
-      description: this.extractedText,
-      position: 0, // First task in this column
-      dueDate: null, // No due date for this card
-      priority: false, // Default priority to false
-      assignedTo: 'user' // Set 'assignedTo' parameter to 'user' as requested
-    };
-  
-    // Push the new taskcard to the new column
-    newColumn.taskcards.push(newTaskCard);
-  
-    // Add the new column to the board's columns array
-    this.board.columns.push(newColumn);
-  }
+  }  
 
   logout() {
     this.authService.logout()

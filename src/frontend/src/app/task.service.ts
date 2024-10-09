@@ -251,4 +251,8 @@ export class TaskService {
   getUsers(boardId:string) {
     return this.webReqService.get(`boards/${boardId}/users`);
   }
+
+  uploadImage(formData: FormData) {
+    return this.webReqService.post(`upload/analyze`, formData);
+  }
 }

@@ -82,8 +82,11 @@ export class EditTaskComponent implements OnInit {
     
   }
 
-  formatDate(date: Date) {
-    return formatDate(date, 'yyyy-MM-dd', 'en-GB');
+  formatDate(date: Date|null) {
+    if (date){
+      return formatDate(date, 'yyyy-MM-dd', 'en-GB');
+    }
+    return null
   }
 
   inputLengthCheck(input: string, length: number) {

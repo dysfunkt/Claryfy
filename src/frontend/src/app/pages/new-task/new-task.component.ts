@@ -118,4 +118,26 @@ export class NewTaskComponent implements OnInit{
     }
     
   }
+
+  uploadPhoto(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append('image', file);
+
+      // Send the file to the backend for OCR analysis
+      this.taskService.uploadImage(formData).subscribe(
+        (response: any) => {
+          console.log('Text extracted successfully:', response.text);
+          const descInput: HTMLInputElement = document.getElementById('taskDescriptionInput') as HTMLInputElement; // Save the extracted text
+          descInput.value = response.text;
+        
+        },
+        (error) => {
+          console.error('Failed to extract text:', error);
+        }
+      );
+    }
+  }
 }

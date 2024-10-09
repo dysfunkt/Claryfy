@@ -6,6 +6,7 @@ describe('KanbanViewComponent', () => {
   let component: KanbanViewComponent;
   let fixture: ComponentFixture<KanbanViewComponent>;
 
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [KanbanViewComponent]

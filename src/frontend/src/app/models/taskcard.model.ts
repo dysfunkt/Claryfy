@@ -5,7 +5,7 @@ export class TaskCard {
     public title: string,
     public description: string,
     public position: Number,
-    public dueDate: Date,
+    public dueDate: Date | null,
     public priority: Boolean,
     public assignedTo: string
   ) {}

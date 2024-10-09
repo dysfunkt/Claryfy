@@ -14,6 +14,8 @@ import { TaskCard } from '../../models/taskcard.model';
 import { formatDate } from '@angular/common';
 import { AuthService } from '../../auth.service';
 import { User } from '../../models/user.model';
+import { HttpClient } from '@angular/common/http';
+
 
 
 
@@ -28,7 +30,9 @@ export class KanbanViewComponent implements OnInit{
   username!: string;
   isActive: Boolean = false;
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {}
+  extractedText: string = ''; // Initialize extractedText as an empty string
+
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService, private http:HttpClient) {}
 
   ngOnInit() { 
     this.route.params.subscribe(
@@ -237,7 +241,7 @@ export class KanbanViewComponent implements OnInit{
       }
     }
     
-  }
+  }  
 
   logout() {
     this.authService.logout()

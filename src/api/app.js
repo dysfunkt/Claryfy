@@ -2,6 +2,12 @@ const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const multer = require('multer');
+const path = require('path');
+const { OpenAI } = require('openai'); // Import OpenAI SDK
+const fs = require('fs'); // For file reading
+const { Readable } = require('stream');
+
 
 const { mongoose } = require('./db/mongoose');
 
@@ -10,6 +16,9 @@ const bodyParser = require('body-parser');
 // Load in mongoose models
 const { Board, Column, TaskCard, User, ResetToken, Comment } = require('./db/models');
 
+const openai = new OpenAI({
+    apiKey: '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', // Replace with your actual API key
+  });  
 /* MIDDLEWARE */
 
 // Load middleware
@@ -23,6 +32,19 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Expose-Headers', 'x-access-token, x-refresh-token');
     next();
 });
+
+// Set up multer storage configuration
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/'); // Store files in the 'uploads' directory
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // Use current timestamp as filename
+    }
+  });
+  
+  const upload = multer({ storage: storage });
+  
 
 //check whether the request has a valid jwt access token
 let authenticate = (req, res, next) => {
@@ -556,6 +578,59 @@ app.post('/reset-password', (req, res) => {
         }
     })
 })
+
+// Route to handle image uploads
+app.post('/upload', authenticate, upload.single('image'), (req, res) => {
+    try {
+      const imageUrl = `uploads/${req.file.filename}`;
+      res.status(200).json({ message: 'File uploaded successfully', imageUrl });
+    } catch (error) {
+      res.status(400).json({ message: 'Failed to upload file', error: error.message });
+    }
+  });
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static('uploads'));
+
+app.post('/upload/analyze', authenticate, upload.single('image'), async (req, res) => {
+    try {
+      // Read the uploaded file from the 'uploads' directory
+      const imagePath = `uploads/${req.file.filename}`;
+      const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
+  
+      // Construct the request payload
+      const messages = [
+        {
+          "role": "user",
+          "content": [
+            { "type": "text", "text": "List out the words in this image, no additional input" },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": `data:image/jpeg;base64,${imageData}`, // Replace with base64 encoded string
+              },
+            },
+          ],
+        },
+      ];
+  
+      // Send request to OpenAI's Chat Completions API
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o", // You can also use other models like "gpt-4-turbo"
+        messages: messages,
+        max_tokens: 300,
+      });
+  
+      // Extract and send the text response
+      const extractedText = response.choices[0].message.content;
+      res.status(200).json({ message: 'Text extracted successfully', text: extractedText });
+    } catch (error) {
+      res.status(500).json({ message: 'Failed to extract text from image', error: error.message });
+    }
+  });
+  
+
+  
 
 /* HELPER METHODS */
 

@@ -13,7 +13,7 @@ export class WebRequestService {
   readonly ROOT_URL;
 
   constructor(private http: HttpClient) {
-    this.ROOT_URL= 'https://claryfy-api.vercel.app';
+    this.ROOT_URL= 'http://localhost:3000';
   }
 
   /**

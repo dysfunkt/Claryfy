@@ -287,3 +287,37 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
+/* Style for the camera icon */
+.camera-icon-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px; /* Set size of the circle */
+  height: 100px; /* Set size of the circle */
+  background-color: rgba(255, 192, 203, 0.8); /* Light pink color (use the same tone as the Kanban columns) */
+  border-radius: 50%; /* Make it a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000; /* Ensure it stays above other elements */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  transition: background-color 0.2s ease; /* Smooth transition for background color */
+}
+
+/* Set size and color of the camera icon */
+.camera-icon {
+  width: 50px; /* Adjust size of the SVG icon */
+  height: 50px;
+  fill: #444; /* Set icon color to contrast the pink background */
+}
+
+/* Hover effect for the camera icon */
+.camera-icon-wrapper:hover {
+  background-color: rgba(255, 182, 193, 1); /* Darker pink on hover */
+}
+
+.camera-icon-wrapper:hover .camera-icon {
+  fill: #333; /* Darken icon color on hover */
+  opacity: 0.9;
+}

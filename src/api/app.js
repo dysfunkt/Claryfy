@@ -7,7 +7,7 @@ const path = require('path');
 const { OpenAI } = require('openai'); // Import OpenAI SDK
 const fs = require('fs'); // For file reading
 const { Readable } = require('stream');
-const { openai_api_key } = require('./config');
+const { openai_api_key, email_username, email_password, claryfy_api } = require('./config');
 const { mongoose } = require('./db/mongoose');
 const bodyParser = require('body-parser');
 
@@ -523,12 +523,12 @@ app.post('/send-email', (req, res) => {
         const mailTransporter = nodemailer.createTransport({
             service:"gmail",
             auth: {
-                user: "kanbanize8@gmail.com",
-                pass: "jtth tprl nrhw ksqt"
+                user: email_username,
+                pass: email_password
             }
         })
         let mailDetails = {
-            from: "kanbanize@gmail.com",
+            from: "kanbanize8@gmail.com",
             to: email,
             subject: "Reset Password",
             html: `
@@ -540,7 +540,7 @@ app.post('/send-email', (req, res) => {
     <h1>Password Reset Request</h1>
     <p>Dear ${user.username},</p>
     <p>We have received a request to reset your password for your account with Kanbanize. To complete the password reset process, please click on the button below!</p>
-    <a href="http://localhost:4200/reset-password/${token}"><button style="background-color: #d291bc; color: white; padding: 14px 20px; border: none;
+    <a href="${claryfy_api}/reset-password/${token}"><button style="background-color: #d291bc; color: white; padding: 14px 20px; border: none;
      cursor: pointer; border-radius: 4px;">Reset Password</button></a>
     <p>Please note that this link is only valid for 5 mins. If you did not request a password reset, please disregard this message.</p>
     <p>Thank you,</p>

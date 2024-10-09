@@ -2,8 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { TaskService } from '../../task.service';
 import { Router } from '@angular/router';
 import { Board } from '../../models/board.model';
-import { AuthService } from '../../auth.service';
-import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-new-project',
@@ -12,13 +10,9 @@ import { User } from '../../models/user.model';
 })
 export class NewProjectComponent implements OnInit{
 
-  constructor(private taskService: TaskService, private router: Router, private authService: AuthService) {  }
-  username!: string;
+  constructor(private taskService: TaskService, private router: Router) {  }
   ngOnInit() { 
-    
-    this.authService.getUsername().subscribe(next => {
-      this.username = (next as User).username
-    })
+  
   }
 
   createProject(title: string) {
@@ -45,10 +39,6 @@ export class NewProjectComponent implements OnInit{
     this.taskService.createColumn(boardId, "Completed", 3).subscribe(() => {});
   }
 
-  logout() {
-    this.authService.logout()
-  }
-
   close() {
     const titleDialog : HTMLDialogElement = document.getElementById('titleError') as HTMLDialogElement;
   
@@ -56,22 +46,4 @@ export class NewProjectComponent implements OnInit{
     
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
-    }
-    
-  }
 }

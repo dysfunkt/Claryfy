@@ -3,8 +3,6 @@ import { TaskService } from '../../task.service';
 import { ActivatedRoute, Params, Router} from '@angular/router';
 import { Column } from '../../models/column.model';
 import { TaskCard } from '../../models/taskcard.model';
-import { AuthService } from '../../auth.service';
-import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-new-task',
@@ -13,11 +11,10 @@ import { User } from '../../models/user.model';
 })
 export class NewTaskComponent implements OnInit{
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService) {}
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router) {}
 
   boardId!: string;
   column!: Column;
-  username!: string;
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
@@ -30,9 +27,6 @@ export class NewTaskComponent implements OnInit{
         })
       }
     )
-    this.authService.getUsername().subscribe(next => {
-      this.username = (next as User).username
-    })
   }
 
   createTask() {
@@ -94,29 +88,6 @@ export class NewTaskComponent implements OnInit{
     if (input.length > length) {
       return true;
     } else return false;
-  }
-
-  logout() {
-    this.authService.logout()
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
-    }
-    
   }
 
   uploadPhoto(event: Event): void {

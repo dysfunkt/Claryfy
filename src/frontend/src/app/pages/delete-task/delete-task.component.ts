@@ -2,8 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { TaskService } from '../../task.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TaskCard } from '../../models/taskcard.model';
-import { AuthService } from '../../auth.service';
-import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-delete-task',
@@ -11,8 +9,7 @@ import { User } from '../../models/user.model';
   styleUrl: './delete-task.component.scss'
 })
 export class DeleteTaskComponent implements OnInit{
-  username!: string;
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService ) {}
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router) {}
   boardId!: string;
   taskcard!: TaskCard
   ngOnInit() {
@@ -25,9 +22,6 @@ export class DeleteTaskComponent implements OnInit{
         })
       }
     )
-    this.authService.getUsername().subscribe(next => {
-      this.username = (next as User).username
-    })
   }
 
   cancel() {
@@ -37,28 +31,5 @@ export class DeleteTaskComponent implements OnInit{
   deleteTaskcard() {
     this.taskService.deleteTaskCard(this.taskcard._columnId, this.taskcard._id).subscribe(() => {});
     this.router.navigate(['/kanban-view', this.boardId]);
-  }
-
-  logout() {
-    this.authService.logout()
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
-    }
-    
   }
 }

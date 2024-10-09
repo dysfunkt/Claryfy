@@ -4,8 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Board } from '../../models/board.model';
 import { Column } from '../../models/column.model';
 import { TaskCard } from '../../models/taskcard.model';
-import { AuthService } from '../../auth.service';
-import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-delete-board',
@@ -13,8 +11,7 @@ import { User } from '../../models/user.model';
   styleUrl: './delete-board.component.scss'
 })
 export class DeleteBoardComponent implements OnInit{
-  username!: string;
-  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router, private authService: AuthService ) {}
+  constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router) {}
 
   board!: Board;
   ngOnInit() {
@@ -26,9 +23,6 @@ export class DeleteBoardComponent implements OnInit{
         })
       }
     )
-    this.authService.getUsername().subscribe(next => {
-      this.username = (next as User).username
-    })
   }
 
   columnInit(boardId:string) {
@@ -58,28 +52,5 @@ export class DeleteBoardComponent implements OnInit{
     }
     this.taskService.deleteBoard(this.board._id).subscribe(() => {});
     this.router.navigate(['project-list']);
-  }
-  
-  logout() {
-    this.authService.logout()
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
-    }
-    
   }
 }

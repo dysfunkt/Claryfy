@@ -14,7 +14,6 @@ import { firstValueFrom } from 'rxjs';
 export class AddUserComponent implements OnInit{
   constructor(private taskService: TaskService, private router: Router, private authService: AuthService, private route: ActivatedRoute) {  }
 
-  username!: string;
   userIds!: any[];
   users: string[] = [];
 
@@ -31,9 +30,6 @@ export class AddUserComponent implements OnInit{
         })
       }
     )
-    this.authService.getUsername().subscribe(next => {
-      this.username = (next as User).username
-    })
   }
 
   usersInit() {
@@ -90,26 +86,4 @@ export class AddUserComponent implements OnInit{
     this.router.navigate(['/kanban-view', this.board._id]);
   }
 
-  logout() {
-    this.authService.logout()
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
-    }
-    
-  }
 }

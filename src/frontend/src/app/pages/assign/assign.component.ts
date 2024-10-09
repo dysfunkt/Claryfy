@@ -13,7 +13,6 @@ import { User } from '../../models/user.model';
 })
 export class AssignComponent implements OnInit{
   boardId!: string;
-  username!: string;
   users: User[] = [];
   userIds!: any[];
 
@@ -36,9 +35,6 @@ export class AssignComponent implements OnInit{
         
       }
     )
-    this.authService.getUsername().subscribe(next => {
-      this.username = (next as User).username
-    })
   }
 
   usersInit() {
@@ -80,28 +76,5 @@ export class AssignComponent implements OnInit{
 
   cancel() {
     this.router.navigate(['/kanban-view', this.boardId]);
-  }
-
-  logout() {
-    this.authService.logout()
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
-    }
-    
   }
 }

@@ -5,7 +5,6 @@ import { AuthService } from '../../auth.service';
 import { TaskCard } from '../../models/taskcard.model';
 import { User } from '../../models/user.model';
 import { Comment } from '../../models/comment.model'
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-comments',
@@ -45,11 +44,6 @@ export class CommentsComponent implements OnInit{
     this.router.navigate(['/kanban-view', this.boardId]);
   }
 
-  
-  logout() {
-    this.authService.logout()
-  }
-
   comment(message: string) {
     if (message.length === 0) {
       const commentInput: HTMLInputElement = document.getElementById('commentInput') as HTMLInputElement;
@@ -61,25 +55,6 @@ export class CommentsComponent implements OnInit{
         const commentInput: HTMLInputElement = document.getElementById('commentInput') as HTMLInputElement;
       commentInput.value = '';
       })
-    }
-    
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const navDropdown: HTMLDivElement = document.getElementById("navbarDropdown") as HTMLDivElement;
-    if (navDropdown) {
-      if(event.target == document.getElementById("navbarButton")) {
-        if (navDropdown.classList.contains('is-active')){
-          navDropdown.classList.remove('is-active')
-        } else {
-          navDropdown.classList.add('is-active')
-        }
-      } else {
-        if (navDropdown.classList.contains('is-active')) {
-          navDropdown.classList.remove('is-active')
-        }
-      }
     }
     
   }

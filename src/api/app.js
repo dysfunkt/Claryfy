@@ -7,18 +7,17 @@ const path = require('path');
 const { OpenAI } = require('openai'); // Import OpenAI SDK
 const fs = require('fs'); // For file reading
 const { Readable } = require('stream');
-
-
+const { openai_api_key } = require('./config');
 const { mongoose } = require('./db/mongoose');
-
 const bodyParser = require('body-parser');
 
 // Load in mongoose models
 const { Board, Column, TaskCard, User, ResetToken, Comment } = require('./db/models');
 
+
 const openai = new OpenAI({
-    apiKey: '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', // Replace with your actual API key
-  });  
+    apiKey: openai_api_key, 
+});  
 /* MIDDLEWARE */
 
 // Load middleware
@@ -41,10 +40,10 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
       cb(null, Date.now() + path.extname(file.originalname)); // Use current timestamp as filename
     }
-  });
-  
-  const upload = multer({ storage: storage });
-  
+});
+
+const upload = multer({ storage: storage });
+
 
 //check whether the request has a valid jwt access token
 let authenticate = (req, res, next) => {

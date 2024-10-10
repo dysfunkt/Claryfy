@@ -1,15 +1,18 @@
 <nav class="navbar has-background-dark">
     <div class="navbar-brand">
-        <div class="navbar-item">
-            <h1 class="app-name has-gradient-text">Claryfy</h1>
-        </div>
+      <div class="navbar-item">
+        <!-- Add the logo image next to the title -->
+        <img src="favicon.ico" alt="Claryfy Logo" class="logo" style="width: 30px; height: 30px; margin-right: 10px;" />
+        <h1 class="app-name has-gradient-text">Claryfy</h1>
+      </div>
     </div>
     <div class="navbar-end">
-        <div class="navbar-item has-dropdown" id="navbarDropdown">
-            <a class="navbar-link has-text-primary" id="navbarButton">{{ username }}</a>
-            <div class="navbar-dropdown is-right is-boxed">
-                <a class="navbar-item has-text-danger" (click)="logout()">Log Out</a>
-            </div>
+      <div class="navbar-item has-dropdown" id="navbarDropdown">
+        <a class="navbar-link has-text-primary" id="navbarButton">{{ username }}</a>
+        <div class="navbar-dropdown is-right is-boxed">
+          <a class="navbar-item has-text-danger" (click)="logout()">Log Out</a>
         </div>
+      </div>
     </div>
-</nav>
+  </nav>
+  

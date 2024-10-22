@@ -65,3 +65,39 @@
   text-align: center;
 }
 
+.project-list-container {
+  padding: 20px;
+}
+
+.custom-search-bar {
+  height: 40px; /* You can set this to any value you prefer */
+  font-size: 16px; /* Optionally increase the font size */
+  padding: 20px; /* Add padding for more space inside the input */
+  border-radius: 5px; /* Adjust for rounder corners */
+  border: 1px solid #ccc; /* Optional, set border to make it look cleaner */
+}
+
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.project-item {
+  color: black; /* Ensure the text color is black */
+  border: 2px solid white; /* White border around each project */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.2); /* Optional: Light background */
+}
+
+.project-link {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+

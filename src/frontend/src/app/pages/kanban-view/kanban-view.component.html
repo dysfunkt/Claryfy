@@ -36,6 +36,16 @@
           <img src="../../../assets/save-icon.svg" />
         </button>
       </div>
+      
+      <!-- Search input -->
+      <div class="search-container">
+        <input
+          class="input is-small"
+          type="text"
+          placeholder="Search tasks..."
+          (input)="onSearch($event)"
+        />
+      </div>
 
 			<div class="dropdown" id="dropdown">
 				<div class="dropdown-trigger">
@@ -56,6 +66,20 @@
         ← Back to Project List
       </button>
     </div>
+
+    <!-- Search Results -->
+    <div *ngIf="searchResults.length > 0">
+      <h3>Search Results:</h3>
+      <ul>
+        <li *ngFor="let taskcard of searchResults" class="search-result-item">
+          <a (click)="editTaskClick(taskcard)" class="search-result-link">{{ taskcard.title }}</a>
+          <p class="search-result-text">Assigned to: {{ taskcard.assignedTo || 'Unassigned' }}</p>
+          <p class="search-result-text">Due: {{ taskcard.dueDate | date: 'dd/MM/yyyy' }}</p>
+        </li>
+      </ul>
+    </div>
+    
+    
 
     <div class="board-wrapper">
       <div class="board-columns" cdkDropListGroup>

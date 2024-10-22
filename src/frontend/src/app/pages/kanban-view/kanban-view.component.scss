@@ -321,3 +321,22 @@
   fill: #333; /* Darken icon color on hover */
   opacity: 0.9;
 }
+
+.search-result-item {
+  color: black;
+  border: 2px solid white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.search-result-link {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.search-result-text {
+  color: black;
+}

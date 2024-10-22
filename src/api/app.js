@@ -628,6 +628,26 @@ app.post('/upload/analyze', authenticate, upload.single('image'), async (req, re
     }
   });
   
+/**
+ * GET /projects/search
+ * Purpose: Search for projects by title (case insensitive)
+ */
+app.get('/projects/search', authenticate, (req, res) => {
+    const query = req.query.q;
+
+    if (!query) {
+        return res.status(400).send({ error: 'Search query is required' });
+    }
+
+    // Use regex for case-insensitive search on board titles
+    Board.find({ title: { $regex: new RegExp(query, 'i') }, 'users._userId': req.user_id })
+        .then((projects) => {
+            res.send(projects);
+        })
+        .catch((error) => {
+            res.status(500).send({ message: 'Error searching for projects', error: error.message });
+        });
+});
 
   
 

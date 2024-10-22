@@ -27,8 +27,9 @@ export class KanbanViewComponent implements OnInit{
   isActive: Boolean = false;
 
   extractedText: string = ''; // Initialize extractedText as an empty string
-
+  uploadedImageUrl: string = '';
   constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router) {}
+
 
   ngOnInit() { 
     this.route.params.subscribe(
@@ -88,6 +89,15 @@ export class KanbanViewComponent implements OnInit{
     saveButton.style.display = 'block';
   }
   
+  uploadBackgroundImage(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.uploadedImageUrl = e.target.result; // Base64 or file URL
+    };
+    reader.readAsDataURL(file);
+  }
+
   saveTitleClick() {
     const boardTitle: HTMLDivElement = document.getElementById('title-container') as HTMLDivElement;
     const titleInput: HTMLInputElement = document.getElementById('title-input') as HTMLInputElement;

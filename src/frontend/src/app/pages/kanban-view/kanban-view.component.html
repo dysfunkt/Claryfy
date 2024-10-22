@@ -52,6 +52,11 @@
 				</div>
 			</div>
 
+      <div class="background-options">
+        <label for="bg-image">Upload Background Image:</label>
+        <input type="file" (change)="uploadBackgroundImage($event)" />
+      </div>
+
       <button class="button-back" routerLink="/project-list">
         ← Back to Project List
       </button>

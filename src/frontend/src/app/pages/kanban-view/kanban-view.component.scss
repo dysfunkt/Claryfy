@@ -325,22 +325,30 @@
 }
 
 .search-result-item {
-  color: black;
-  border: 2px solid white;
+  display: flex;
+  flex-direction: row;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 5px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.2);
 }
 
 .search-result-link {
-  color: black;
   text-decoration: none;
   font-weight: bold;
 }
 
-.search-result-text {
-  color: black;
+.right {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: right;
+  font-weight: bold;
+}
+.right-link {
+  margin-left: auto;
+  padding-right: 15px;
 }
 
 .search-container {

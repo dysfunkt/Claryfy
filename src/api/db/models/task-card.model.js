@@ -28,8 +28,8 @@ const TaskCardSchema = new mongoose.Schema({
         default: false
     }, 
     assignedTo: {
-        type: String,
-        default: 'Unassigned'
+        type: [String],
+        default: ['Unassigned']
     }
 
 })

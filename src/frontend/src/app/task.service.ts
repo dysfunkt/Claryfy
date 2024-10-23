@@ -171,7 +171,7 @@ export class TaskService {
    * @param username new username
    * @returns Updated Taskcard
    */
-  updateTaskCardAssigned(columnId: string, taskcardId: string, username: string) {
+  updateTaskCardAssigned(columnId: string, taskcardId: string, username: string[]) {
     return this.webReqService.patch(`columns/${columnId}/taskcards/${taskcardId}`, {
       assignedTo: username
     })

@@ -3,9 +3,7 @@ import { TaskService } from '../../task.service';
 import { ActivatedRoute, Params, Router} from '@angular/router';
 import { Column } from '../../models/column.model';
 import { TaskCard } from '../../models/taskcard.model';
-import { type PutBlobResult } from '@vercel/blob';
-import { upload } from '@vercel/blob/client';
-import { Block } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-new-task',
@@ -45,8 +43,8 @@ export class NewTaskComponent implements OnInit{
       const inputLength50Dialog : HTMLDialogElement = document.getElementById('inputLength50Error') as HTMLDialogElement;
       inputLength50Dialog.show();
     }
-    else if (this.inputLengthCheck(descInput.value, 250)) {
-      const inputLength250Dialog : HTMLDialogElement = document.getElementById('inputLength250Error') as HTMLDialogElement;
+    else if (this.inputLengthCheck(descInput.value, 500)) {
+      const inputLength250Dialog : HTMLDialogElement = document.getElementById('inputLength500Error') as HTMLDialogElement;
       inputLength250Dialog.show();
     }
     else if (isNaN(date.getTime())) {

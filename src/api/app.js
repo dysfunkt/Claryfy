@@ -91,29 +91,6 @@ let verifySession = (req, res, next) => {
     });
 }
 
-let uploadBlob = async (req, res, next) => {
-    try {
-        // Ensure the file exists in the request
-        if (!req.file) {
-            return res.status(400).json({ message: 'No file uploaded' });
-        }
-
-        const file = req.file;
-
-        // Upload the file to Vercel Blob
-        const blob = await put(file.originalname, file.buffer, {
-            access: 'public', // Can also be 'private'
-            contentType: file.mimetype, // Use the file's MIME type (e.g., 'image/png')
-        });
-
-        // Attach the blob info (such as URL) to the request object for further use
-        req.blob = blob;
-        next(); // Proceed to the next middleware
-    } catch (err) {
-        console.error('Error uploading file to Vercel Blob:', err);
-        res.status(500).json({ message: 'Failed to upload file' });
-    }
-};
 
 /* END MIDDLEWARE */
 
@@ -128,7 +105,10 @@ let uploadBlob = async (req, res, next) => {
 app.get('/boards', authenticate, (req, res) => {
     //return an array of all the boards in the database that belongs to the authenticated user.
     Board.find({
-        'users._userId': req.user_id
+        $or: [
+            {'_ownerId': req.user_id},
+            {'_userId': req.user_id}
+        ]
     }).then((boards) => {
         res.send(boards);
     }).catch((e) => {
@@ -142,9 +122,11 @@ app.get('/boards', authenticate, (req, res) => {
  */
 app.post('/boards', authenticate, (req, res) => {
     let title = req.body.title;
+    let owner = req.user_id
 
     let newBoard = new Board({
-        title,
+        title: title,
+        _ownerId: owner
     });
     newBoard.save().then((boardDoc) => {
         // the full board doc is returned (including id)
@@ -283,7 +265,7 @@ app.post('/boards/:boardId/columns', authenticate, (req, res) => {
     //We want to create a new columns in a board specified by boardId
     Board.findOne({
         _id: req.params.boardId,
-        'users._userId': req.user_id
+        '_ownerId': req.user_id
     }).then((board) => {
         if (board) {
             return true;
@@ -665,6 +647,25 @@ app.get('/projects/search', authenticate, (req, res) => {
         .catch((error) => {
             res.status(500).send({ message: 'Error searching for projects', error: error.message });
         });
+});
+
+app.post('/users/search', authenticate, async (req, res) => {
+    const searchQuery = req.body.username || '';
+
+    if (!searchQuery) {
+        return res.status(400).json([]); // Return empty array if no query
+    }
+
+    try {
+        const users = await User.find({
+            username: { $regex: searchQuery, $options: 'i' } // Case-insensitive search
+        }).limit(5); // Limit results for better performance
+
+        res.json(users);
+    } catch (error) {
+        console.error('Error fetching usernames:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 });
 
   

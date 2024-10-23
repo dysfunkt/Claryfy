@@ -252,6 +252,12 @@ export class TaskService {
     return this.webReqService.get(`boards/${boardId}/users`);
   }
 
+  searchUsers(username:string) {
+    return this.webReqService.post(`users/search`, {
+      username
+    });
+  }
+
   uploadImage(formData: FormData) {
     return this.webReqService.post(`upload/analyze`, formData);
   }

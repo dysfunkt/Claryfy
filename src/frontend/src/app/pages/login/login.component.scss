@@ -37,7 +37,8 @@ label{
 input{
 	width: 60%;
 	height: 20px;
-	background: #ececec;
+	background: #484848;
+	color: #f8f8f8;
 	justify-content: center;
 	display: flex;
 	margin: 20px auto;
@@ -63,7 +64,7 @@ input{
 }
 .signup{
 	height: 460px;
-	background: #eee;
+	background: #484848;
 	border-radius: 60% / 10%;
 	transform: translateY(-180px);
 	transition: transform .8s ease-in-out, background-color .8s ease-in-out;
@@ -74,10 +75,10 @@ input{
 
 #chk:checked ~ .signup{
 	transform: translateY(-530px);
-	background-color: #fff;
+	background-color: #282828;
 }
 #chk:checked ~ .login{
-	background-color: #eee;
+	background-color: #484848;
 }
 #chk:checked ~ .signup label{
 	transform: scale(1);	

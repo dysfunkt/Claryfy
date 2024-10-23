@@ -121,6 +121,13 @@ export class KanbanViewComponent implements OnInit{
     saveButton.style.display = 'none';
     this.updateBoardTitle(titleInput.value);
   }
+
+  searchClick(){
+    const searchButton: HTMLButtonElement = document.getElementById('search-button') as HTMLButtonElement;
+    const searchBar: HTMLDivElement = document.getElementById('search-bar') as HTMLDivElement;
+    searchButton.style.display = 'none';
+    searchBar.style.display = 'block';
+  }
   
   drop(event: CdkDragDrop<Column>) {
     if (event.previousContainer === event.container) {

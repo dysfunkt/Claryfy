@@ -49,17 +49,11 @@
     <button class="button is-small dialog-button" (click)="close()">Ok</button>
   </div>
 </dialog>
+<app-navbar-no-login></app-navbar-no-login>
 <div class="root">
-  <div class="navbar has-background-dark">
-    <div class="navbar-brand">
-      <div class="navbar-item">
-        <img src="favicon.ico" alt="Claryfy Logo" class="logo" style="width: 30px; height: 30px; margin-right: 10px;" />
-        <h1 class="app-name has-gradient-text">Claryfy</h1>
-      </div>
-    </div>
-  </div>
+  
   <div class="centered-content">
-    <div class="login-container has-background-white">
+    <div class="login-container has-background-dark">
       <input type="checkbox" id="chk" aria-hidden="true" />
 
       <div class="login">
@@ -81,7 +75,7 @@
           required=""
         />
         <button
-          class="button has-text-white is-primary login-button"
+          class="button has-text-dark is-primary login-button"
           (click)="onLoginButtonClick(usernameInput.value, pwInput.value)"
         >
           Login
@@ -127,7 +121,7 @@
           required=""
         />
         <button
-          class="button has-text-white is-primary login-button"
+          class="button has-text-dark is-primary login-button"
           (click)="
             onRegisterButtonClick(
               registerUsername.value,

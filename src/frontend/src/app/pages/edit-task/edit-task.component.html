@@ -43,7 +43,7 @@
       <div class="field">
         <label class="label">Task Title</label>
         <input
-        class="input has-background-light is-medium"
+        class="input is-medium"
         type="text"
         id="taskTitleInput"
         value="{{ taskcard.title }}"
@@ -53,7 +53,7 @@
         <label class="label">Task Description</label>
         <textarea
           id="taskDescriptionInput"
-          class="textarea has-background-light is-medium"
+          class="textarea is-medium"
           value="{{ taskcard.description }}"
         ></textarea>
       </div>
@@ -61,7 +61,7 @@
         <label class="label">Task Due Date</label>
         <input
         id="taskDateInput"
-        class="input has-background-light is-medium"
+        class="input is-medium"
         type="date"
         value="{{ formatDate(taskcard.dueDate) }}"
       />
@@ -70,7 +70,7 @@
       <br /><br />
       <div class="buttons is-right">
         <button class="button is-medium" (click)="cancel()">Cancel</button>
-        <button class="button is-primary has-text-white is-medium" (click)="save()">Save</button>
+        <button class="button is-primary has-text-dark is-medium" (click)="save()">Save</button>
       </div>
     </div>
   </div>

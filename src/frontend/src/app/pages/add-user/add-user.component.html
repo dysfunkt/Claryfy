@@ -19,31 +19,46 @@
     <div class="modal-box" id="main">
       <h1 class="title">Add User</h1>
       <div class="field">
-        <input
-          #usernameInput
-          class="input has-background-light is-medium"
-          type="text"
-          placeholder="Enter username"
-        />
+        <div class="control">
+          <input
+              #usernameInput
+              id="usernameInput"
+              class="input is-medium"
+              type="text"
+              placeholder="Search for usernames..."
+              (input)="onSearchInput($event)" 
+          />
       </div>
-
+      <div class="dropdown" [class.is-active]="usernames.length > 0">
+        <div class="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+                <a class="dropdown-item has-text-light" *ngFor="let username of usernames" (click)="selectUsername(username)">
+                    {{ username }}
+                </a>
+                <div *ngIf="usernames.length === 0 && searchQuery" class="dropdown-item">
+                    No results found
+                </div>
+            </div>
+        </div>
+    </div>
       <br />
       <div class="buttons is-right">
         <button class="button is-medium" (click)="cancel()">Cancel</button>
         <button
-          class="button is-primary has-text-white is-medium"
+          class="button is-primary has-text-dark is-medium"
           (click)="addButtonClick(usernameInput.value)"
         >
           Add
         </button>
       </div>
     </div>
+    
     <div class="modal-box is-hidden" id="sub">
       <h1 class="title">User Added!</h1>
       <br />
       <div class="buttons is-right">
         <button
-          class="button is-primary has-text-white is-medium"
+          class="button is-primary has-text-dark is-medium"
           (click)="cancel()"
         >
           Return to Board

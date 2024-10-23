@@ -7,6 +7,12 @@ const BoardSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
+    _ownerId: {
+
+        type: mongoose.Types.ObjectId,
+        required: true
+        
+    },
     users: [{
         _userId: {
             type: mongoose.Types.ObjectId,

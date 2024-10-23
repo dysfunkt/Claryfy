@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { Board } from '../../models/board.model';
 import { User } from '../../models/user.model';
-import { firstValueFrom } from 'rxjs';
+import { debounceTime, firstValueFrom, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-add-user',
@@ -12,10 +12,50 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './add-user.component.scss'
 })
 export class AddUserComponent implements OnInit{
-  constructor(private taskService: TaskService, private router: Router, private authService: AuthService, private route: ActivatedRoute) {  }
+  constructor(private taskService: TaskService, private router: Router, private authService: AuthService, private route: ActivatedRoute) {  
+    this.searchSubject.pipe(debounceTime(1000)).subscribe((query: any) => {
+      if (query) {
+        this.searchUsernames(query);
+      } else {
+        this.usernames = []; // Clear results if the input is empty
+      }
+    });
+  }
+  onSearchInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchQuery = input.value.trim();
+    this.searchSubject.next(this.searchQuery);
+    this.clickedflag = false
+  }
+
+  private searchUsernames(query: string): void {
+    this.usernames = []
+    this.taskService.searchUsers(query).subscribe(
+      (next) => {
+        let queryUsers = next as User[]; // Update the list of usernames
+        for (var user of queryUsers) {
+          this.usernames.push(user.username)
+        }
+      },
+      (error) => {
+        console.error('Error fetching usernames:', error);
+      }
+    );
+  }
+
+  clickedflag = false
+  selectUsername(username: string): void {
+    const usernameInput: HTMLInputElement = document.getElementById('usernameInput') as HTMLInputElement;
+    usernameInput.value = username // Set input value to clicked username
+    this.clickedflag = true
+    this.usernames = []; // Clear the dropdown results
+  }
 
   userIds!: any[];
   users: string[] = [];
+  usernames: string[] = [];
+  searchQuery: string = '';
+  private searchSubject = new Subject<string>();
 
   board!: Board;
   ngOnInit() { 

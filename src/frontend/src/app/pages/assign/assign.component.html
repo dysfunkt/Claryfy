@@ -3,15 +3,28 @@
   <div class="centered-content">
     <div class="modal-box" id="main">
       <h1 class="title">Assign User to Task</h1>
-      <div class="control">
-        <div class="select is-medium">
-          <select #select class="select-box">
-            <option>Select User</option>
-            <option *ngFor="let user of users">{{ user.username }}</option>
-            <option>Unassign</option>
-          </select>
+      <div class="user-assignment-container">
+        <div class="field">
+            <div class="control">
+                <div class="select">
+                    <select #select id="select" (change)="assignUser()">
+                        <option value="" disabled selected>Select a user</option>
+                        <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+                    </select>
+                </div>
+            </div>
         </div>
-      </div>
+    
+        <div class="assigned-users">
+            <h3>Assigned Users</h3>
+            <ul>
+                <li *ngFor="let user of assignedUsers">
+                    {{ user }}
+                    <button class="delete" (click)="removeUser(user)">×</button>
+                </li>
+            </ul>
+        </div>
+    </div>
 
       <br />
       <div class="buttons is-right">
@@ -19,7 +32,7 @@
         <button
           id="assignButton"
           class="button is-primary has-text-dark is-medium"
-          (click)="assignButtonClick(select.value)"
+          (click)="assignButtonClick(assignedUsers)"
         >
           Assign
         </button>
@@ -27,7 +40,7 @@
     </div>
     <div class="modal-box is-hidden has-text-light" id="assigned">
       <h1 class="title">Assign User to Task</h1>
-      <p>User Assigned!</p>
+      <p>Assignment Updated!</p>
 
       <br />
       <div class="buttons is-right">

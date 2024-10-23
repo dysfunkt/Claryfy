@@ -13,11 +13,11 @@
     <div class="modal-box">
       <h1 class="title">Create a new project</h1>
   
-      <input #projectTitleInput class="input has-background-light is-medium" type="text" placeholder="Enter project name" />
+      <input #projectTitleInput class="input is-medium" type="text" placeholder="Enter project name" />
       <br><br>
       <div class="buttons is-right">
         <button class="button is-medium" routerLink="/project-list">Cancel</button>
-        <button class="button is-primary has-text-white is-medium" (click)="createProject(projectTitleInput.value)">Create</button>
+        <button class="button is-primary has-text-dark is-medium" (click)="createProject(projectTitleInput.value)">Create</button>
         
       </div>
     

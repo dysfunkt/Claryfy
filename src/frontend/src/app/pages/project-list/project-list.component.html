@@ -2,22 +2,35 @@
     <app-navbar></app-navbar>
     <div class="centered-content">
         <div class="project-manager-container">
-            <div class="project-list-container has-background-white"> 
+            <div class="project-list-container has-background-dark"> 
                 <h1 class="title has-text-primary">
                     Projects
                 </h1>
-    
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <input
+                        type="text"
+                        class="input is-small custom-search-bar" 
+                        placeholder="Search projects..."
+                        (input)="onSearch($event)"
+                    />
+                </div>
+                <hr>
                 <!-- Project Elements -->
                 <div class="project-menu">
-                    <div class="menu-container" *ngIf="boards">
-                        <a class="project-menu-item" *ngFor="let project of boards" [routerLink]="['/kanban-view', project._id]">
+                    <!-- Show filtered projects based on search query -->
+                    <div class="menu-container" *ngIf="filteredBoards.length > 0">
+                        <a class="project-menu-item" *ngFor="let project of filteredBoards" [routerLink]="['/kanban-view', project._id]">
                             <p>{{project.title}}</p>
                         </a>
-                        <h3 class="empty-state" *ngIf="boards.length === 0">You have no projects! Create a new project to get started.</h3>
                     </div>
+
+                    <!-- Message if no projects are found -->
+                    <h3 class="empty-state" *ngIf="filteredBoards.length === 0">No projects found.</h3>
                 </div>
     
-                <button class="button is-primary has-text-white" routerLink="/new-project">+ New Project</button>
+                <button class="button is-primary has-text-dark" routerLink="/new-project">+ New Project</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,13 @@
+
+
+.navbar-item.has-dropdown:focus .navbar-link, .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link {
+    background-color: #484848;
+}
+.navbar-dropdown a.navbar-item:focus, .navbar-dropdown a.navbar-item:hover {
+    background-color: #484848;
+}
+.navbar-brand {
+    &:hover {
+        cursor: pointer;
+    }
+}

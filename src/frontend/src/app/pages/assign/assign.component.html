@@ -5,7 +5,7 @@
       <h1 class="title">Assign User to Task</h1>
       <div class="control">
         <div class="select is-medium">
-          <select #select>
+          <select #select class="select-box">
             <option>Select User</option>
             <option *ngFor="let user of users">{{ user.username }}</option>
             <option>Unassign</option>
@@ -18,14 +18,14 @@
         <button class="button is-medium" (click)="cancel()">Cancel</button>
         <button
           id="assignButton"
-          class="button is-primary has-text-white is-medium"
+          class="button is-primary has-text-dark is-medium"
           (click)="assignButtonClick(select.value)"
         >
           Assign
         </button>
       </div>
     </div>
-    <div class="modal-box is-hidden" id="assigned">
+    <div class="modal-box is-hidden has-text-light" id="assigned">
       <h1 class="title">Assign User to Task</h1>
       <p>User Assigned!</p>
 
@@ -33,14 +33,14 @@
       <div class="buttons is-right">
         <button
           id="assignButton"
-          class="button is-primary has-text-white is-medium"
+          class="button is-primary has-text-dark is-medium"
           (click)="cancel()"
         >
           Back to Board
         </button>
       </div>
     </div>
-    <div class="modal-box is-hidden" id="unassigned">
+    <div class="modal-box is-hidden has-text-light" id="unassigned">
       <h1 class="title">Assign User to Task</h1>
       <p>User Unassigned!</p>
 
@@ -48,7 +48,7 @@
       <div class="buttons is-right">
         <button
           id="assignButton"
-          class="button is-primary has-text-white is-medium"
+          class="button is-primary has-text-dark is-medium"
           (click)="cancel()"
         >
           Back to Board

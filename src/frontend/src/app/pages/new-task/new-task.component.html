@@ -43,7 +43,7 @@
         <label class="label">Task Title</label>
         <input
         id="taskTitleInput"
-        class="input has-background-light is-medium"
+        class="input is-medium"
         type="text"
         placeholder="Enter task name"
       />
@@ -52,14 +52,14 @@
         <label class="label">Task Description</label>
         <textarea
           id="taskDescriptionInput"
-          class="textarea has-background-light is-medium"
+          class="textarea is-medium"
           placeholder="Enter task description"
         ></textarea>
         <br />
         <div class="file">
           <label class="file-label">
             <input class="file-input" (change)="uploadPhoto($event)" type="file" name="resume" />
-            <span class="file-cta">
+            <span class="file-cta has-text-light">
               <span class="file-icon">
                 <img src="assets/camera-icon.svg" alt="Upload Photo" class="camera-icon" />
               </span>
@@ -72,7 +72,7 @@
         <label class="label">Task Due Date</label>
         <input
         id="taskDateInput"
-        class="input has-background-light is-medium"
+        class="input is-medium has-text-light"
         type="date"
       />
       </div>
@@ -82,7 +82,7 @@
         
         <button class="button is-medium" (click)="cancel()">Cancel</button>
         <button
-          class="button is-primary has-text-white is-medium"
+          class="button is-primary has-text-dark is-medium"
           (click)="createTask()"
         >
           Create

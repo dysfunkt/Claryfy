@@ -23,6 +23,7 @@ import { ViewUsersComponent } from './pages/view-users/view-users.component';
 import { CommentsComponent } from './pages/comments/comments.component';
 import { AssignComponent } from './pages/assign/assign.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarNoLoginComponent } from './navbar-no-login/navbar-no-login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     ViewUsersComponent,
     CommentsComponent,
     AssignComponent,
-    NavbarComponent
+    NavbarComponent,
+    NavbarNoLoginComponent
 
   ],
   imports: [

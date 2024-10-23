@@ -16,7 +16,7 @@
           {{ board.title }}
         </div>
         <input
-          class="board-name-input input"
+          class="board-name-input input has-background-dark has-text-light"
           type="text"
           placeholder="{{ board.title }}"
           id="title-input"
@@ -36,11 +36,26 @@
           <img src="../../../assets/save-icon.svg" />
         </button>
       </div>
+      
+      <!-- Search input -->
+      <div class="search-container" id="search-bar">
+        <input
+          class="input is-small has-background-dark has-text-light"
+          type="text"
+          placeholder="Search tasks..."
+          (input)="onSearch($event)"
+        />
+      </div>
+      <button class="button is-small search-button is-hidden" id="search-button" (click)="searchClick()">
+        <img id="search-icon" src="../../../assets/search-icon.svg" />
+      </button>
 
-			<div class="dropdown" id="dropdown">
+			<div class="dropdown is-right" id="dropdown">
 				<div class="dropdown-trigger">
 					<button class="button is-small settings-button" id="board-options" aria-haspopup="true" aria-controls="dropdown-menu">
-						<img id="board-options-icon" src="../../../assets/gear-icon.svg" />
+						<span>
+              <img id="board-options-icon" aria-controls="dropdown-menu" src="../../../assets/gear-icon.svg" />
+            </span>
 					</button>
 				</div>
 				<div class="dropdown-menu" id="dropdown-menu" role="menu">
@@ -52,16 +67,30 @@
 				</div>
 			</div>
 
-      <button class="button-back" routerLink="/project-list">
-        ← Back to Project List
+      <button class="button is-small settings-button" routerLink="/project-list">
+        <img src="../../../assets/back-icon.svg" />
       </button>
     </div>
+
+    <!-- Search Results -->
+    <div *ngIf="searchResults.length > 0">
+      <h3>Search Results:</h3>
+      <ul>
+        <li *ngFor="let taskcard of searchResults" class="search-result-item">
+          <a (click)="editTaskClick(taskcard)" class="search-result-link">{{ taskcard.title }}</a>
+          <p class="search-result-text">Assigned to: {{ taskcard.assignedTo || 'Unassigned' }}</p>
+          <p class="search-result-text">Due: {{ taskcard.dueDate | date: 'dd/MM/yyyy' }}</p>
+        </li>
+      </ul>
+    </div>
+    
+    
 
     <div class="board-wrapper">
       <div class="board-columns" cdkDropListGroup>
         <div class="board-column" *ngFor="let column of board.columns">
           <div class="column-header">
-            <div class="column-title">
+            <div class="column-title has-text-primary">
               {{ column.title }}
             </div>
             <div class="button-container">

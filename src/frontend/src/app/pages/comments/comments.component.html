@@ -3,7 +3,7 @@
 
   <div class="centered-content">
     <div class="task-container">
-      <div class="sidebar has-background-white">
+      <div class="sidebar has-background-dark has-text-light">
         <h1 class="title has-text-primary">Task</h1>
         <div class="task-info">
           <h3 class="info-title">Title</h3>
@@ -23,14 +23,15 @@
         </div>
         <button class="button is-primary" (click)="backToBoard()">Back to board</button>
       </div>
-      <div class="comments-container has-background-light">
+
+      <div class="comments-container">
         <div class="header">
           <h1 class="title has-text-primary">Comments</h1>
         </div>
         
-        <div class="comment-element-container">
+        <div class="comment-element-container has-text-light">
           <!-- comment elements --> 
-          <div class="comment" *ngFor="let comment of comments">
+          <div class="comment has-background-dark" *ngFor="let comment of comments">
             <div class="comment-header">
               <div class="comment-text">{{ comment.message }}</div>
             </div>
@@ -45,7 +46,7 @@
         
         <div class="field has-addons">
           <div class="control is-expanded">
-            <input #commentInput class="input" type="text" placeholder="Enter a comment" id="commentInput"/>
+            <input #commentInput class="input has-background-dark has-text-light" type="text" placeholder="Enter a comment" id="commentInput"/>
           </div>
           <div class="control">
             <button class="button is-primary" (click)="comment(commentInput.value)">Comment</button>

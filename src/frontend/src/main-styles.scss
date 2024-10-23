@@ -3,14 +3,19 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Nunito:400,700');
 
 $purple: #e0bbe4;
-$pink: #d291bc;
+$lilac: #ecd5fb;
 $light-purple: #fec8d8;
 $dark-purple: #957dad;
 
+$gray: #484848;
+$dark-gray: #121212;
+$light-gray: #5f5f5f;
+
 $light: #f8f8f8;
+$dark: #282828;
 
 $family-sans-serif: "Nunito", sans-serif;
-$primary: $pink;
+$primary: $lilac;
 
 $link: $light-purple;
 
@@ -18,8 +23,12 @@ $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
 
+$input-placeholder-color: $light;
+
+$dropdown-content-background-color: $dark;
+
 html {
-    background: linear-gradient(to right top, $purple, $pink);
+    background: linear-gradient(to right top, $dark-gray,$dark-gray);
 }
 
 html, body {
@@ -46,6 +55,13 @@ html, body {
         margin-left: auto;
     }
 }
+.dropdown-item {
+    color: $light;
+    &:hover {
+        background-color: $gray;
+        color: $light;
+    }
+}
 
 .centered-content {
     display: flex;
@@ -59,11 +75,29 @@ html, body {
     min-height: 200px;
     width: 100%;
     max-width: 580px;
-    background: white;
+    background: $dark;
     border-radius: 5px;
     padding: 35px;
+    color: $light;
+    .title {
+        color: $primary;
+    }
     .label {
         padding-left: 4px;
+        color: $light;
+    }
+    .input {
+        background-color: $gray;
+        color: $light;
+
+    }
+    .textarea {
+        background-color: $gray;
+        color: $light;
+    }
+    .select-box {
+        background-color: #484848;
+        color: #f8f8f8;
     }
 }
 
@@ -80,7 +114,8 @@ html, body {
 }
 
 .has-gradient-text {
-    background: -webkit-linear-gradient($pink, $dark-purple);
+    background: -webkit-linear-gradient($lilac, $dark-purple);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+

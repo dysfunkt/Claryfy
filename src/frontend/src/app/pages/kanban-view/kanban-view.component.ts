@@ -28,6 +28,10 @@ export class KanbanViewComponent implements OnInit{
 
   extractedText: string = ''; // Initialize extractedText as an empty string
 
+  // For search functionality
+  searchQuery: string = '';
+  searchResults: TaskCard[] = []; // Search results now store task cards, not boards
+
   constructor(private taskService: TaskService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() { 
@@ -62,6 +66,22 @@ export class KanbanViewComponent implements OnInit{
     });
   }
 
+  // Updated search functionality to search for task cards across all columns
+  onSearch(event: any) {
+    const searchText = event.target.value.toLowerCase();
+    this.searchResults = []; // Reset the search results
+    
+    if (searchText) {
+      this.board.columns.forEach(column => {
+        const matchingTaskCards = column.taskcards.filter(taskcard =>
+          taskcard.title.toLowerCase().includes(searchText) ||
+          taskcard.description.toLowerCase().includes(searchText)
+        );
+        this.searchResults.push(...matchingTaskCards);
+      });
+    }
+  }
+
   editTaskClick(taskcard: TaskCard) {
     this.route.params.subscribe(
       (params: Params) => {
@@ -75,6 +95,8 @@ export class KanbanViewComponent implements OnInit{
         this.router.navigate(['/comments', params['boardId'], taskcard._columnId, taskcard._id]);
     });
   }
+
+  
 
   editTitleClick() {
     const boardTitle: HTMLDivElement = document.getElementById('title-container') as HTMLDivElement;
@@ -98,6 +120,13 @@ export class KanbanViewComponent implements OnInit{
     editButton.style.display = 'block';
     saveButton.style.display = 'none';
     this.updateBoardTitle(titleInput.value);
+  }
+
+  searchClick(){
+    const searchButton: HTMLButtonElement = document.getElementById('search-button') as HTMLButtonElement;
+    const searchBar: HTMLDivElement = document.getElementById('search-bar') as HTMLDivElement;
+    searchButton.style.display = 'none';
+    searchBar.style.display = 'block';
   }
   
   drop(event: CdkDragDrop<Column>) {

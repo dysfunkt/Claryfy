@@ -3,6 +3,9 @@ import { TaskService } from '../../task.service';
 import { ActivatedRoute, Params, Router} from '@angular/router';
 import { Column } from '../../models/column.model';
 import { TaskCard } from '../../models/taskcard.model';
+import { type PutBlobResult } from '@vercel/blob';
+import { upload } from '@vercel/blob/client';
+import { Block } from '@angular/compiler';
 
 @Component({
   selector: 'app-new-task',
@@ -96,6 +99,11 @@ export class NewTaskComponent implements OnInit{
       const file = input.files[0];
       const formData = new FormData();
       formData.append('image', file);
+      const loading : HTMLDivElement = document.getElementById('loading') as HTMLDivElement;
+      const fail : HTMLDivElement = document.getElementById('fail') as HTMLDivElement;
+      loading.style.display = 'block';
+      fail.style.display = 'none';
+
 
       // Send the file to the backend for OCR analysis
       this.taskService.uploadImage(formData).subscribe(
@@ -103,10 +111,13 @@ export class NewTaskComponent implements OnInit{
           console.log('Text extracted successfully:', response.text);
           const descInput: HTMLInputElement = document.getElementById('taskDescriptionInput') as HTMLInputElement; // Save the extracted text
           descInput.value = response.text;
+          loading.style.display = 'none';
         
         },
         (error) => {
           console.error('Failed to extract text:', error);
+          loading.style.display = 'none';
+          loading.style.display = 'block';
         }
       );
     }

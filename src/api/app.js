@@ -11,6 +11,7 @@ const { openai_api_key, email_username, email_password, claryfy_api } = require(
 const { mongoose } = require('./db/mongoose');
 const bodyParser = require('body-parser');
 
+
 // Load in mongoose models
 const { Board, Column, TaskCard, User, ResetToken, Comment } = require('./db/models');
 
@@ -33,16 +34,8 @@ app.use(function(req, res, next) {
 });
 
 // Set up multer storage configuration
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, 'uploads/'); // Store files in the 'uploads' directory
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + path.extname(file.originalname)); // Use current timestamp as filename
-    }
-});
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: multer.memoryStorage() });
 
 
 //check whether the request has a valid jwt access token
@@ -97,6 +90,30 @@ let verifySession = (req, res, next) => {
         res.status(401).send(e);
     });
 }
+
+let uploadBlob = async (req, res, next) => {
+    try {
+        // Ensure the file exists in the request
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+
+        const file = req.file;
+
+        // Upload the file to Vercel Blob
+        const blob = await put(file.originalname, file.buffer, {
+            access: 'public', // Can also be 'private'
+            contentType: file.mimetype, // Use the file's MIME type (e.g., 'image/png')
+        });
+
+        // Attach the blob info (such as URL) to the request object for further use
+        req.blob = blob;
+        next(); // Proceed to the next middleware
+    } catch (err) {
+        console.error('Error uploading file to Vercel Blob:', err);
+        res.status(500).json({ message: 'Failed to upload file' });
+    }
+};
 
 /* END MIDDLEWARE */
 
@@ -594,8 +611,9 @@ app.use('/uploads', express.static('uploads'));
 app.post('/upload/analyze', authenticate, upload.single('image'), async (req, res) => {
     try {
       // Read the uploaded file from the 'uploads' directory
-      const imagePath = `uploads/${req.file.filename}`;
-      const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
+      
+      const imageBuffer = req.file.buffer;
+      const imageData = imageBuffer.toString('base64');
   
       // Construct the request payload
       const messages = [

@@ -602,7 +602,7 @@ app.post('/upload/analyze', authenticate, upload.single('image'), async (req, re
         {
           "role": "user",
           "content": [
-            { "type": "text", "text": "List out the words in this image, no additional input" },
+            { "type": "text", "text": "List out the words in this image, limited to 500 characters, no additional input" },
             {
               "type": "image_url",
               "image_url": {

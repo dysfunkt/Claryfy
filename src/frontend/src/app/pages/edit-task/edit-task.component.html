@@ -7,11 +7,11 @@
     <button class="button is-small dialog-button" (click)="close()">Ok</button>
   </div>
 </dialog>
-<dialog class="dialog-box" id="inputLength250Error">
+<dialog class="dialog-box" id="inputLength500Error">
   <div class="dialog-content">
     <h1><b>Error</b></h1>
     <p>
-      Limit your input to 250 characters!
+      Limit your input to 500 characters!
     </p>
     <button class="button is-small dialog-button" (click)="close()">Ok</button>
   </div>
@@ -56,6 +56,24 @@
           class="textarea is-medium"
           value="{{ taskcard.description }}"
         ></textarea>
+        <br />
+        <div class="file">
+          <label class="file-label">
+            <input class="file-input" (change)="uploadPhoto($event)" type="file" name="resume" />
+            <span class="file-cta has-text-light">
+              <span class="file-icon">
+                <img src="assets/camera-icon.svg" alt="Upload Photo" class="camera-icon" />
+              </span>
+              <span class="file-label"> Get Text From Image </span>
+            </span>
+          </label>
+        </div>
+        <div class="loading" id="loading">
+          <p>Loading...</p>
+        </div>
+        <div class="fail" id="fail">
+          <p>Failed to identify image</p>
+        </div>
       </div>
       <div class="field">
         <label class="label">Task Due Date</label>

@@ -100,4 +100,33 @@ export class EditTaskComponent implements OnInit {
     return before || after
   }
   
+  uploadPhoto(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append('image', file);
+      const loading : HTMLDivElement = document.getElementById('loading') as HTMLDivElement;
+      const fail : HTMLDivElement = document.getElementById('fail') as HTMLDivElement;
+      loading.style.display = 'block';
+      fail.style.display = 'none';
+
+
+      // Send the file to the backend for OCR analysis
+      this.taskService.uploadImage(formData).subscribe(
+        (response: any) => {
+          console.log('Text extracted successfully:', response.text);
+          const descInput: HTMLInputElement = document.getElementById('taskDescriptionInput') as HTMLInputElement; // Save the extracted text
+          descInput.value = response.text;
+          loading.style.display = 'none';
+        
+        },
+        (error) => {
+          console.error('Failed to extract text:', error);
+          loading.style.display = 'none';
+          loading.style.display = 'block';
+        }
+      );
+    }
+  }
 }

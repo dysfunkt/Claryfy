@@ -76,7 +76,7 @@ export class NewTaskComponent implements OnInit{
 
   close() {
     const titleDialog : HTMLDialogElement = document.getElementById('titleError') as HTMLDialogElement;
-    const inputLength250Dialog : HTMLDialogElement = document.getElementById('inputLength250Error') as HTMLDialogElement;
+    const inputLength250Dialog : HTMLDialogElement = document.getElementById('inputLength500Error') as HTMLDialogElement;
     const inputLength50Dialog : HTMLDialogElement = document.getElementById('inputLength50Error') as HTMLDialogElement;
     const dateDialog : HTMLDialogElement = document.getElementById('dateError') as HTMLDialogElement;
     titleDialog.close();

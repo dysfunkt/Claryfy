@@ -45,6 +45,19 @@
         
         
         <div class="field has-addons">
+          <div class="control">
+            <div class="file">
+              <label class="file-label">
+                <input class="file-input " (change)="uploadPhoto($event)" type="file" name="resume" />
+                <span class="file-cta has-background-dark has-text-light">
+                  <span class="file-icon">
+                    <img src="assets/camera-icon.svg" alt="Upload Photo" class="camera-icon" />
+                  </span>
+                  
+                </span>
+              </label>
+            </div>
+          </div>
           <div class="control is-expanded">
             <input #commentInput class="input has-background-dark has-text-light" type="text" placeholder="Enter a comment" id="commentInput"/>
           </div>

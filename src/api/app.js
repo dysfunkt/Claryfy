@@ -106,8 +106,8 @@ app.get('/boards', authenticate, (req, res) => {
     //return an array of all the boards in the database that belongs to the authenticated user.
     Board.find({
         $or: [
-            {'_ownerId': req.user_id},
-            {'_userId': req.user_id}
+            {'_ownerId': req.user_id},  // Direct match with _ownerId
+            {'users._userId': req.user_id}  // Checks if req.user_id exists in the users array
         ]
     }).then((boards) => {
         res.send(boards);

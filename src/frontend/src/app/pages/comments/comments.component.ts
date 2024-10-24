@@ -58,4 +58,29 @@ export class CommentsComponent implements OnInit{
     }
     
   }
+
+  uploadPhoto(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append('image', file);
+      const commentInput: HTMLInputElement = document.getElementById('commentInput') as HTMLInputElement; 
+      commentInput.value = 'Loading...'
+
+
+      // Send the file to the backend for OCR analysis
+      this.taskService.uploadImage(formData).subscribe(
+        (response: any) => {
+          console.log('Text extracted successfully:', response.text);
+          commentInput.value = response.text;
+
+        
+        },
+        (error) => {
+          console.error('Failed to extract text:', error);
+        }
+      );
+    }
+  }
 }

@@ -1,5 +1,5 @@
 # Claryfy
-This is a project that uses the Angular framework.
+This is a project that uses the Angular framework.  
 [Live Deployment](https://claryfy.vercel.app)
 ## Dependencies required
 - [Angular CLI 17.3.10 & Node 20.11.1](https://radixweb.com/blog/how-to-install-angular-on-windows)

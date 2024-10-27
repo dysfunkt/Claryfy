@@ -16,7 +16,6 @@ Navigate to ./src/frontend and run `ng serve` then go to the localhost link to v
 - [Source Code (Frontend)](./src/frontend/)
 - [Source Code (Backend)](./src/api/)
 - [Documentation](./src/frontend/documentation/index.html)
-- [Demo (YouTube)](https://www.youtube.com/watch?v=G8lqwwTZkqo)
 
 
 
